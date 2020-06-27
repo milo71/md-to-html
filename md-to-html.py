@@ -9,7 +9,7 @@ ap.add_argument('-o', '--output', required=True, help='output file name')
 args = ap.parse_args()
 
 with open(args.input,'r') as inputfile:
-    htmlhead = '<html>\n<head>\n</head>\n<body>'
+    htmlhead = '<html>\n<head>\n</head>\n<body>\n'
     htmlfoot = '\n</body>\n</html>'
     html = markdown.markdown(inputfile.read())
     htmldoc = htmlhead+html+htmlfoot
