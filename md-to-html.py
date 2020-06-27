@@ -1,18 +1,18 @@
 import sys
 import markdown
-import getopt
+import argparse
 
-inputfile = sys.argv[1:]
-outputfile = sys.argv[2:]
-opts, args = getopt.getopt(inputfile,'i')
-opts, args = getopt.getopt(outputfile,'i')
+ap = argparse.ArgumentParser(description='Parse markdown to html')
+ap.add_argument('-i', '--input', required=True, help='input file name')
+ap.add_argument('-o', '--output', required=True, help='output file name')
 
-inputfile = open(inputfile[1],'r')
-outputfile = open(outputfile[2],'w')
+args = ap.parse_args()
 
-htmlhead = '<html>\n<head>\n</head>\n<body>'
-htmlfoot = '\n</body>\n</html>'
-html = markdown.markdown(inputfile.read())
-htmldoc = htmlhead+html+htmlfoot
+with open(args.input,'r') as inputfile:
+    htmlhead = '<html>\n<head>\n</head>\n<body>'
+    htmlfoot = '\n</body>\n</html>'
+    html = markdown.markdown(inputfile.read())
+    htmldoc = htmlhead+html+htmlfoot
 
-outputfile.write(htmldoc)
+with open(args.output,'w') as outputfile:
+    outputfile.write(htmldoc)
